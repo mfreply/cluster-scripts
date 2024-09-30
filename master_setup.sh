@@ -14,7 +14,7 @@ log_step "Start generic setup phase"
 
 log_step "Initialize the cluster"
 kubeadm init --pod-network-cidr=10.244.0.0/16
-
+export KUBECONFIG=/etc/kubernetes/admin.conf
 
 log_step "Install helm"
 #https://helm.sh/docs/intro/install/

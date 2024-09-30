@@ -110,7 +110,7 @@ tar Cxzvf /opt/cni/bin /tmp/cni-plugins
 log_step "Generate containerd config with SystemdCgroup and registry configuration"
 mkdir -p /etc/containerd
 containerd config default \
-  | tomlq -t ".plugins.'io.containerd.grpc.v1.cri'.containerd.runtimes.runc.options.SystemdCgroup = true | .plugins.'io.containerd.grpc.v1.cri'.registry.mirrors.'${REGISTRY_NAME}'.endpoint = ['${REGISTRY_ENDPOINT}']"\
+  | tomlq -t ".plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc.options.SystemdCgroup = true | .plugins.\"io.containerd.grpc.v1.cri\".registry.mirrors.\"${REGISTRY_NAME}\".endpoint = [\"${REGISTRY_ENDPOINT}\"]"\
   | tee /etc/containerd/config.toml >/dev/null
 systemctl restart containerd
 
