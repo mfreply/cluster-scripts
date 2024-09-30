@@ -7,7 +7,7 @@ log_step () { printf "\n\033[34;1m##\033[37m $1 \033[34m##\033[0m\n"; }
 # Variables
 ARCH='amd64'
 K8S_MAJOR='1'
-K8S_MINOR='30'
+K8S_MINOR='31'
 K8S_PATCH='1'
 K8S_VERSION=${K8S_MAJOR}.${K8S_MINOR}.${K8S_PATCH}
 CNI_PLUGINS_VERSION='1.5.1'
