@@ -1,3 +1,4 @@
+#!/bin/bash
 # Generic initial setup script
 # Needs to be run on the node with root privileges.
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/

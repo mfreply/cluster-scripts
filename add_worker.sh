@@ -1,3 +1,6 @@
+#!/bin/bash
+# Setup a worker node and join it to the cluster
+
 WORKER_IP=$1
 
 KUBE_USER=$(whoami)

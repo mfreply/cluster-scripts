@@ -1,3 +1,4 @@
+#!/bin/bash
 # Setup script for master node to start the cluster.
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
