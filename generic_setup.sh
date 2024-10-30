@@ -118,7 +118,7 @@ systemctl restart containerd
 # Check for NVIDIA cards, if none is found stop the setup otherwise install necessary sw
 nvidia_card=$(lspci | grep -i nvidia)
 if ! $?; then
-  echo "Configuration completed!"
+  printf "\n\033[37m Configuration completed! \033[0m\n"
   exit 0
 fi
 
