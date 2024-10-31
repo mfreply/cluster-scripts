@@ -7,7 +7,9 @@ WORKER_IP=$1
 KUBE_USER=$(whoami)
 
 HOSTNAME_PREFIX='k8s-worker'
-WORKER_HOSTNAME=$(printf "${WORKER_PREFIX}-%02d" $(( 1 + $(cat /etc/hosts | sed -En "s/.*${WORKER_PREFIX}-([0-9]+)/\1/p" | sort | tail -1) )))
+curr_id=$(cat /etc/hosts | sed -En "s/.*${WORKER_PREFIX}-([0-9]+)/\1/p" | sort | tail -1)
+test -z ${curr_id} && curr_id=0 
+WORKER_HOSTNAME=${HOSTNAME_PREFIX}-$(printf "%02d" $(( 1 + ${curr_id} )))
 
 # Create a ssh key if is not present
 ssh-keygen -t ed25519 -a 100 -N '' -f ~/.ssh/id_ed25519 <<< n
@@ -28,4 +30,6 @@ scp ~/join.sh ${WORKER_IP}:/tmp
 ssh ${WORKER_IP} -t 'chmod +x /tmp/join.sh && /tmp/join.sh'
 
 # Add the hostname of the configured worker
-sudo echo "${WORKER_IP}\t${WORKER_HOSTNAME}" >> /etc/hosts
+sudo tee -a /etc/hosts << EOF
+${WORKER_IP}  ${WORKER_HOSTNAME}
+EOF
