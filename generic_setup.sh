@@ -49,7 +49,7 @@ EOF
 systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
 
 
-log_step 'Set static ip'
+log_step 'Setup network'
 iface=$(ip -o route get to 8.8.8.8 | sed -n 's/.* \(\w\+\) src.*/\1/p')
 gateway=$(ip -o route get to 8.8.8.8 | sed -n 's/.*via \([0-9.]\+\).*/\1/p')
 address=$(ip -f inet addr show $iface | sed -En -e 's/.*inet ([0-9./]+).*/\1/p')
@@ -75,9 +75,14 @@ mv /tmp/interfaces /etc/network/interfaces
 systemctl restart networking
 
 
-log_step 'Set ipv4 packet forwarding'
+log_step 'Setup system modules'
+modprobe br_netfilter
+tee -a /etc/modules << EOF
+br_netfilter
+EOF
 tee /etc/sysctl.d/k8s.conf << EOF
 net.ipv4.ip_forward = 1
+net.bridge.bridge-nf-call-iptables = 1
 EOF
 sysctl --system
 
