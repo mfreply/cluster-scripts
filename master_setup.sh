@@ -50,3 +50,4 @@ kubeadm token create --print-join-command > /home/${KUBE_USER}/join.sh
 mkdir -p /home/${KUBE_USER}/.kube
 cp -i /etc/kubernetes/admin.conf /home/${KUBE_USER}/.kube/config
 chown $(id -u ${KUBE_USER}):$(id -g ${KUBE_USER}) /home/${KUBE_USER}/.kube/config
+
